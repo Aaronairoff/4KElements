@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>4KElements | Cinematic Video & Visual Storytelling</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="4KElements — cinematic video, reels, and visual storytelling for brands and events." />
+
+  <style>
+    :root{
+      --bg: #ffffff;
+      --surface-1: #f7f8fa;
+      --surface-2: #f1f3f5;
+      --surface-3: #e8ebee;
+      --panel: var(--surface-2);
+      --panel2: var(--surface-3);
+      --text: #0b1220;
+      --muted: #6b7280;
+      --muted2: #9aa0a6;
+      --stroke: rgba(15,23,42,0.06);
+      --shadow: 0 10px 30px rgba(15,23,42,.06);
+      --accent: #0071e3; /* Apple-like blue */
+      --accent2: #5b21b6; /* secondary */
+      --radius: 12px;
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.45;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .wrap{ max-width: var(--max); margin: 0 auto; padding: 24px; }
+
+    /* Top bar */
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding: 16px 0;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      letter-spacing:.2px;
+    }
+    .logo{
+      width:68px; height:68px;
+      border-radius: 9px;
+      background-color: transparent;
+      background-image: url("./assets/images/LogoConcreteBG.PNG");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      box-shadow: 0 6px 20px rgba(2,6,23,.06);
+    }
+    .navlinks{
+      display:flex; gap:18px; align-items:center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .navlinks a{
+      display:inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: transform 160ms ease, color 160ms ease;
+      transform-origin: center;
+    }
+    .navlinks a:hover{
+      color: inherit;
+      background: transparent;
+      box-shadow: none;
+      transform: scale(1.05);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      background: var(--surface-3);
+      color: var(--text);
+      box-shadow: 0 6px 18px rgba(2,6,23,.04);
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+    .btn:hover{
+      background: var(--surface-2);
+      transform: scale(1.04);
+    }
+    .btn.primary{
+      border-color: rgba(0,113,227,.18);
+      background: linear-gradient(135deg, rgba(0,113,227,.08), rgba(91,33,182,.06));
+    }
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(0,113,227,.12), rgba(91,33,182,.10));
+    }
+    .btn.ghost{
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+    }
+    .btn.ghost:hover{
+      background: transparent;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 10px;
+      padding: 46px 0 26px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .card{
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, var(--surface-1), var(--surface-2));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-left{
+      padding: 34px 30px;
+      position: relative;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface-3);
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:99px;
+      background: #ffd75a;
+      box-shadow:
+        0 0 8px rgba(255,255,235,1),
+        0 0 22px rgba(255,238,140,1),
+        0 0 48px rgba(255,215,90,1),
+        0 0 80px rgba(255,200,70,.9),
+        0 0 120px rgba(255,200,70,.75),
+        0 0 180px rgba(255,200,70,.6),
+        0 0 240px rgba(255,200,70,.45);
+    }
+
+    h1{
+      margin:0;
+      font-size: clamp(2.2rem, 3.2vw, 3.2rem);
+      letter-spacing: -0.6px;
+      line-height: 1.05;
+    }
+    .sub{
+      margin: 14px 0 18px;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .cta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top: 18px;
+      align-items:center;
+    }
+
+    .meta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top: 18px;
+      color: var(--muted2);
+      font-size: 13px;
+    }
+    .meta{
+      display:flex; gap:8px; align-items:center;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      background: var(--surface-3);
+      transition: transform 160ms ease;
+    }
+    .meta b{ color: var(--text); font-weight: 650; }
+    .meta:hover{
+      transform: scale(1.05);
+    }
+
+    /* Hero right: showreel placeholder */
+    .hero-right{
+      display:flex;
+      flex-direction: column;
+      min-height: 100%;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+    }
+    .reel{
+      padding: 18px;
+      display:flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 100%;
+      align-items: center;
+    }
+    .frame-video{
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      display: block;
+      object-fit: cover;
+    }
+    .reel h2{
+      font-size: 14px;
+      margin:0;
+      color: var(--muted);
+      letter-spacing:.18px;
+      text-transform: uppercase;
+    }
+    .video-box{
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background:
+        radial-gradient(800px 240px at 20% 0%, rgba(0,113,227,.05), transparent 55%),
+        radial-gradient(600px 240px at 85% 20%, rgba(91,33,182,.04), transparent 60%),
+        var(--panel);
+      height: 250px;
+      position: relative;
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .play{
+      width: 66px; height: 66px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface-3);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 8px 24px rgba(2,6,23,.04);
+    }
+    .play:before{
+      content:"";
+      display:block;
+      width:0; height:0;
+      border-left: 16px solid rgba(2,6,23,.85);
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      margin-left: 4px;
+    }
+    .reel p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    /* Sections */
+    section{ margin-top: 22px; }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    .work, .services, .about{
+      padding: 18px;
+    }
+
+    .section-title{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+      margin-bottom: 12px;
+    }
+    .section-title h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing: .2px;
+    }
+    .insta-gradient{
+      background: linear-gradient(135deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-title span{
+      color: var(--muted2);
+      font-size: 13px;
+    }
+
+    .thumbs{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .thumb{
+      border-radius: 16px;
+      border: 1px solid var(--stroke);
+      background: rgba(0,0,0,.22);
+      aspect-ratio: 9 / 16;
+      position: relative;
+      overflow:hidden;
+    }
+    .thumb video{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit: cover;
+    }
+    .thumb:after{
+      display: none;
+    }
+
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+    .pill{
+      padding: 9px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: var(--surface-3);
+      color: var(--text);
+      font-size: 13px;
+      transition: transform 160ms ease;
+    }
+    .pill:hover{
+      transform: scale(1.05);
+    }
+
+    .svc{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .svc .item{
+      border: 1px solid var(--stroke);
+      background: rgba(0,0,0,.18);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .item b{ display:block; margin-bottom: 6px; }
+    .item p{ margin:0; color: var(--muted); font-size: 14px; }
+
+    .about p{ margin: 0; color: var(--muted); font-size: 14px; }
+    .footer{
+      margin: 18px 0 8px;
+      padding: 16px 0;
+      color: var(--muted2);
+      font-size: 13px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--stroke);
+    }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: 1fr; }
+      .video-box{ height: 220px; }
+    }
+    @media (max-width: 640px){
+      .thumbs{ grid-template-columns: 1fr; }
+      .svc{ grid-template-columns: 1fr; }
+      .navlinks{ display:none; }
+      .hero-left{ padding: 28px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>4KElements</div>
+      </div>
+
+      <nav class="navlinks">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="btn" href="#contact">Get in touch</a>
+    </header>
+
+    <section class="hero">
+      <div class="card hero-left">
+        <div class="kicker"><span class="dot"></span> Available for brands, restaurants, events</div>
+        <h1>Cinematic video that makes people stop scrolling.</h1>
+        <p class="sub">
+          High-impact reels, product visuals, and story-driven edits — built for attention and retention.
+          Fast turnaround, clean sound design, premium color.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary ghost" href="#contact">Book a shoot</a>
+          <a class="btn ghost" href="#work">View work</a>
+        </div>
+
+        <div class="meta-row">
+          <div class="meta"><b>Reels</b> 9:16 / 4K</div>
+          <div class="meta"><b>Turnaround</b> 48–72 hrs</div>
+          <div class="meta"><b>Coverage</b> LA / IE / OC</div>
+        </div>
+      </div>
+
+      <div class="card hero-right">
+        <div class="reel">
+
+          <video
+            class="frame-video"
+            src="assets/videos/IphoneFrame.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+          ></video>
+
+
+          <div class="pillrow">
+            <span class="pill">Color grading</span>
+            <span class="pill">Sound design</span>
+            <span class="pill">Special effects</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="grid">
+      <div class="card work" style="grid-column: span 12;">
+        <div class="section-title">
+          <h3 class="insta-gradient">Selected Work</h3>
+        </div>
+
+        <div class="thumbs">
+          <div class="thumb" aria-label="Project 1 video">
+            <video
+              src="assets/videos/O2_WorthitbyRay_Reel.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+          </div>
+          <a class="thumb" href="#" aria-label="Project 2">
+            <video
+              src="assets/videos/Snoozeinstrumental.mp4"
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+          </a>
+          <a class="thumb" href="#" aria-label="Project 3">
+            <video
+              src="assets/videos/4-30-24.mov"
+              autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="grid">
+      <div class="card services" style="grid-column: span 7;">
+        <div class="section-title">
+          <h3>Services</h3>
+        </div>
+
+        <div class="svc">
+          <div class="item">
+            <b>Reels (30–60s)</b>
+            <p>Shoot + edit, premium color, sound design, delivered for IG/TikTok.</p>
+          </div>
+          <div class="item">
+            <b>Brand mini-films</b>
+            <p>Story-driven highlight edits for your site, ads, and long-term branding.</p>
+          </div>
+          <div class="item">
+            <b>Photo coverage</b>
+            <p>Clean, modern images for menus, products, events, and social.</p>
+          </div>
+          <div class="item">
+            <b>Drone / FPV</b>
+            <p>Dynamic aerial shots for venues, restaurants, real estate, and events.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card about" id="about" style="grid-column: span 5;">
+        <div class="section-title">
+          <h3>About</h3>
+        </div>
+        <p>
+          4KElements delivers cinematic visuals for brands that want attention and trust.
+          I focus on clean composition, strong pacing, and color that feels premium — so your content performs.
+        </p>
+
+        <div class="pillrow" style="margin-top:12px;">
+          <span class="pill">LA / IE / OC</span>
+          <span class="pill">Fast turnaround</span>
+          <span class="pill">Creator-first</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="grid">
+      <div class="card work" style="grid-column: span 12;">
+        <div class="section-title">
+          <h3>Contact</h3>
+        </div>
+
+        <div class="cta">
+          <a class="btn primary" href="mailto:Fourkelements@outlook.com">Email me</a>
+          <a class="btn" href="https://www.instagram.com/4kelements?igsh=NTc4MTIwNjQ2YQ%3D%3D&utm_source=qr" target="_blank" rel="noreferrer">Instagram</a>
+          <a class="btn" href="#" target="_blank" rel="noreferrer">Portfolio Link</a>
+        </div>
+
+        <p style="margin:12px 0 0; color: var(--muted); font-size:14px;">
+          Typical response time: same day. For bookings, include your shoot date, location, and deliverables.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> 4KElements</div>
+      <div>Built with simple HTML/CSS — fast, clean, and free to host.</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const root = document.documentElement;
+    root.style.setProperty("--nav-hover-text", "#fff");
+    root.style.setProperty("--nav-hover-bg", "rgba(31, 41, 55, 0.9)");
+    root.style.setProperty("--nav-hover-border", "rgba(31, 41, 55, 0.95)");
+
+    const heroVideo = document.querySelector(".frame-video");
+    if (heroVideo) {
+      heroVideo.muted = true;
+    }
+  </script>
+</body>
+</html>
