@@ -5,6 +5,7 @@
   <title>4KElements | Cinematic Video & Visual Storytelling</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="4KElements — cinematic video, reels, and visual storytelling for brands and events." />
+  <link rel="stylesheet" href="styles.css" />
 
   <style>
     :root{
@@ -22,7 +23,7 @@
       --accent: #0071e3; /* Apple-like blue */
       --accent2: #5b21b6; /* secondary */
       --radius: 12px;
-      --max: 1120px;
+      --max: 1200px;
     }
 
     *{ box-sizing:border-box; }
@@ -127,8 +128,8 @@
       margin-top: 10px;
       padding: 46px 0 26px;
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 22px;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 26px;
       align-items: stretch;
     }
 
@@ -141,7 +142,7 @@
     }
 
     .hero-left{
-      padding: 34px 30px;
+      padding: 30px 28px;
       position: relative;
     }
 
@@ -222,18 +223,20 @@
       box-shadow: none;
     }
     .reel{
-      padding: 18px;
+      padding: 12px;
       display:flex;
       flex-direction: column;
       gap: 12px;
       height: 100%;
-      align-items: center;
+      align-items: stretch;
+      width: 100%;
     }
     .frame-video{
       width: 100%;
-      height: 100%;
+      height: auto;
       border-radius: 16px;
       display: block;
+      aspect-ratio: 14.062 / 11.249;
       object-fit: cover;
     }
     .reel h2{
@@ -294,6 +297,17 @@
     .work, .services, .about{
       padding: 18px;
     }
+    .work{ position: relative; }
+
+    .dim-overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 14, 0.55);
+      opacity: 0;
+      transition: opacity 220ms ease;
+      pointer-events: none;
+      z-index: 4;
+    }
 
     .section-title{
       display:flex;
@@ -322,20 +336,46 @@
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
+      position: relative;
+      z-index: 6;
+      /* Reserve space for the tallest (9:16) hover state to prevent layout shift. */
+      min-height: calc(((100% - 24px) / 3) * (16 / 9));
     }
     .thumb{
       border-radius: 16px;
       border: 1px solid var(--stroke);
       background: rgba(0,0,0,.22);
-      aspect-ratio: 9 / 16;
+      aspect-ratio: 14.062 / 11.249;
       position: relative;
       overflow:hidden;
+      transition: transform 220ms ease, box-shadow 220ms ease, aspect-ratio 220ms ease;
+      transform-origin: center center;
     }
     .thumb video{
       width:100%;
       height:100%;
       display:block;
       object-fit: cover;
+    }
+
+    .thumbs.has-active .dim-overlay{
+      opacity: 1;
+    }
+    .thumbs.has-active .thumb{
+      opacity: 0.65;
+    }
+    .thumbs .thumb.is-active{
+      opacity: 1;
+      aspect-ratio: 9 / 16;
+      transform: scale(1.06);
+      box-shadow: 0 14px 30px rgba(2,6,23,.25);
+      z-index: 7;
+    }
+    .thumbs .thumb.is-active:first-child{
+      transform: translateX(calc(50% + 6px)) scale(1.06);
+    }
+    .thumbs .thumb.is-active:last-child{
+      transform: translateX(calc(-50% - 6px)) scale(1.06);
     }
     .thumb:after{
       display: none;
@@ -396,7 +436,10 @@
       .video-box{ height: 220px; }
     }
     @media (max-width: 640px){
-      .thumbs{ grid-template-columns: 1fr; }
+      .thumbs{
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
       .svc{ grid-template-columns: 1fr; }
       .navlinks{ display:none; }
       .hero-left{ padding: 28px 20px; }
@@ -428,7 +471,7 @@
         <h1>Cinematic video that makes people stop scrolling.</h1>
         <p class="sub">
           High-impact reels, product visuals, and story-driven edits — built for attention and retention.
-          Fast turnaround, clean sound design, premium color.
+          Fast turnaround, clean edits, and a polished finish.
         </p>
 
         <div class="cta">
@@ -448,7 +491,7 @@
 
           <video
             class="frame-video"
-            src="assets/videos/IphoneFrame.mp4"
+            src="assets/videos/canvacontent1.mp4"
             autoplay
             muted
             loop
@@ -456,53 +499,33 @@
           ></video>
 
 
-          <div class="pillrow">
-            <span class="pill">Color grading</span>
-            <span class="pill">Sound design</span>
-            <span class="pill">Special effects</span>
-          </div>
         </div>
       </div>
     </section>
 
     <section id="work" class="grid">
       <div class="card work" style="grid-column: span 12;">
+        <div class="dim-overlay" aria-hidden="true"></div>
         <div class="section-title">
           <h3 class="insta-gradient">Selected Work</h3>
         </div>
 
         <div class="thumbs">
           <div class="thumb" aria-label="Project 1 video">
-            <video
-              src="assets/videos/O2_WorthitbyRay_Reel.mp4"
-              autoplay
-              muted
-              loop
-              playsinline
-            ></video>
+            <div style="padding:177.78% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/1154558898?autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;background=1&amp;badge=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Project 1"></iframe>
+            </div>
           </div>
-<div class="thumb" aria-label="Project 2">
-  <div style="padding:177.78% 0 0 0;position:relative;">
-    <iframe src="https://player.vimeo.com/video/1154559083?autoplay=1&muted=1&loop=1&autopause=0&background=1&badge=0&player_id=0&app_id=58479"
-      frameborder="0"
-      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      style="position:absolute;top:0;left:0;width:100%;height:100%;"
-      title="Snoozeinstrumental"></iframe>
-  </div>
-</div>
-          
-</div>
-
-          <a class="thumb" href="#" aria-label="Project 3">
-            <video
-              src="assets/videos/4-30-24.mov"
-              autoplay
-              muted
-              loop
-              playsinline
-            ></video>
-          </a>
+          <div class="thumb" aria-label="Project 2">
+            <div style="padding:177.78% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/1154559083?autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;background=1&amp;badge=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Snoozeinstrumental"></iframe>
+            </div>
+          </div>
+          <div class="thumb" aria-label="Project 3">
+            <div style="padding:177.78% 0 0 0;position:relative;">
+              <iframe src="https://player.vimeo.com/video/1154558687?autoplay=1&amp;muted=1&amp;loop=1&amp;autopause=0&amp;background=1&amp;badge=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Project 3"></iframe>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -516,7 +539,7 @@
         <div class="svc">
           <div class="item">
             <b>Reels (30–60s)</b>
-            <p>Shoot + edit, premium color, sound design, delivered for IG/TikTok.</p>
+            <p>Shoot + edit, delivered for IG/TikTok.</p>
           </div>
           <div class="item">
             <b>Brand mini-films</b>
@@ -539,7 +562,7 @@
         </div>
         <p>
           4KElements delivers cinematic visuals for brands that want attention and trust.
-          I focus on clean composition, strong pacing, and color that feels premium — so your content performs.
+          I focus on clean composition and strong pacing — so your content performs.
         </p>
 
         <div class="pillrow" style="margin-top:12px;">
@@ -574,6 +597,14 @@
     </footer>
   </div>
 
+  <div id="scroll-indicator" class="scroll-indicator" aria-hidden="true">
+    <span class="scroll-indicator__text"></span>
+    <span class="scroll-indicator__arrows">
+      <span></span>
+      <span></span>
+    </span>
+  </div>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
@@ -586,6 +617,55 @@
     if (heroVideo) {
       heroVideo.muted = true;
     }
+
+    const thumbs = document.querySelector(".thumbs");
+    if (thumbs) {
+      const tiles = thumbs.querySelectorAll(".thumb");
+      const clearActive = () => {
+        thumbs.classList.remove("has-active");
+        tiles.forEach((tile) => tile.classList.remove("is-active"));
+      };
+
+      tiles.forEach((tile) => {
+        tile.addEventListener("pointerenter", () => {
+          thumbs.classList.add("has-active");
+          tiles.forEach((t) => t.classList.remove("is-active"));
+          tile.classList.add("is-active");
+          // Snap only once, after the 9:16 transition completes.
+          setTimeout(() => {
+            tile.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+          }, 240);
+        });
+      });
+
+      thumbs.addEventListener("pointerleave", clearActive);
+    }
+
+    const scrollIndicator = document.getElementById("scroll-indicator");
+    if (scrollIndicator) {
+      // Reuse the existing "Selected Work" label without duplicating it in markup.
+      const workTitle = document.querySelector("#work .section-title h3");
+      const label = workTitle ? workTitle.textContent.trim() : "Selected Work";
+      const indicatorText = scrollIndicator.querySelector(".scroll-indicator__text");
+      if (indicatorText) {
+        indicatorText.textContent = label;
+        indicatorText.setAttribute("data-text", label);
+      }
+
+      const handleScroll = () => {
+        // Fade once on first scroll, then remove the element permanently.
+        if (window.scrollY > 0 && !scrollIndicator.classList.contains("is-fading")) {
+          scrollIndicator.classList.add("is-fading");
+          window.removeEventListener("scroll", handleScroll);
+          scrollIndicator.addEventListener("transitionend", () => {
+            scrollIndicator.remove();
+          }, { once: true });
+        }
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    }
   </script>
+  <script src="https://player.vimeo.com/api/player.js"></script>
 </body>
 </html>
