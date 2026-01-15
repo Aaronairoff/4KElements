@@ -1,39 +1,101 @@
-@font-face {
-  font-family: "ZenDots";
-  src: url("assets/fonts/zendots-regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Base styles extracted from index.html */
-:root{
-  color-scheme: Dark;
-}
-
-body {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  margin: 0;
-  background: #071026;
-  color: #fff;
-  display: flex;
+/* Scroll indicator styles */
+.scroll-indicator{
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-}
-
-main {
-  max-width: 900px;
-  padding: 2rem;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: #ffffff;
+  width: min(720px, calc(100vw - 32px));
   text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 1;
+  transition: opacity 900ms ease;
+  pointer-events: none;
+  z-index: 1000;
 }
 
-h1 {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  margin: 0 0 .5rem;
+.scroll-indicator.is-fading{
+  opacity: 0;
 }
 
-p {
-  color: #9aa4b2;
-  margin: 0;
+.scroll-indicator::before{
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 100%;
+  height: 22px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(59,130,246,0.35), rgba(168,85,247,0.35), rgba(236,72,153,0.35), rgba(34,211,238,0.35), transparent);
+  filter: blur(10px) saturate(160%) contrast(140%);
+  opacity: 0.65;
+  z-index: -2;
+  pointer-events: none;
+  background-size: 300% 300%;
+  animation: scrollGlow 10s ease-in-out infinite;
+}
+
+.scroll-indicator__text{
+  position: relative;
+  font-weight: 500;
+  text-shadow:
+    0 0 12px rgba(96,165,250,0.7),
+    0 0 24px rgba(168,85,247,0.65),
+    0 0 34px rgba(236,72,153,0.6),
+    0 0 40px rgba(34,211,238,0.6),
+    0 0 60px rgba(96,165,250,0.45),
+    0 0 80px rgba(244,114,182,0.35);
+}
+
+.scroll-indicator__text::before{
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #2563eb, #7c3aed, #db2777, #06b6d4, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: blur(8px) saturate(170%) contrast(160%);
+  opacity: 0.95;
+  z-index: -1;
+  background-size: 300% 300%;
+  animation: scrollGlow 10s ease-in-out infinite;
+}
+
+.scroll-indicator__arrows{
+  display: inline-flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.scroll-indicator__arrows span{
+  width: 7px;
+  height: 7px;
+  border-right: 1px solid rgba(255,255,255,0.9);
+  border-bottom: 1px solid rgba(255,255,255,0.9);
+  transform: rotate(45deg);
+  opacity: 0.75;
+}
+
+@keyframes scrollGlow{
+  0%{ background-position: 0% 50%; }
+  33%{ background-position: 100% 50%; }
+  66%{ background-position: 50% 100%; }
+  100%{ background-position: 0% 50%; }
+}
+
+@media (max-width: 640px){
+  .scroll-indicator{
+    bottom: 12px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
 }
