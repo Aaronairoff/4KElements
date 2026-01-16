@@ -435,6 +435,30 @@
       .hero{ grid-template-columns: 1fr; }
       .video-box{ height: 220px; }
     }
+    @media (max-width: 720px){
+      .wrap{ padding: 18px; }
+      .nav{ flex-wrap: wrap; gap: 10px; }
+      .logo{ width: 54px; height: 54px; }
+      .nav .btn{ padding: 10px 14px; font-size: 13px; }
+      .hero{ padding: 32px 0 16px; }
+      .hero-right{ order: -1; }
+      .hero-left{ order: 0; padding: 24px 20px; }
+      .kicker{ font-size: 12px; padding: 8px 10px; }
+      h1{ font-size: clamp(2rem, 7vw, 2.6rem); }
+      .sub{ font-size: 0.98rem; margin: 12px 0 16px; }
+      .cta{ gap: 10px; }
+      .cta .btn{ flex: 1 1 100%; }
+      .meta-row{
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .meta{ justify-content: center; }
+      .reel{ padding: 8px; }
+      .frame-video{ border-radius: 18px; }
+      .work, .services, .about{ padding: 16px; }
+      .section-title{ align-items: center; }
+    }
     @media (max-width: 640px){
       .thumbs{
         grid-template-columns: 1fr;
@@ -442,7 +466,8 @@
       }
       .svc{ grid-template-columns: 1fr; }
       .navlinks{ display:none; }
-      .hero-left{ padding: 28px 20px; }
+      .meta-row{ grid-template-columns: 1fr; }
+      .footer{ flex-direction: column; align-items: center; text-align: center; }
     }
   </style>
 </head>
