@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+h<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>4KElements | Cinematic Video & Visual Storytelling</title>
@@ -464,6 +464,36 @@
         grid-template-columns: 1fr;
         min-height: auto;
       }
+      .thumbs.is-swipe{
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        padding: 6px 6px 14px;
+        scroll-snap-type: x mandatory;
+        scroll-padding: 10px;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+      }
+      .thumbs.is-swipe .thumb{
+        flex: 0 0 78%;
+        scroll-snap-align: center;
+        aspect-ratio: 9 / 16;
+        transform: scale(0.92) rotate(-2deg);
+        box-shadow: 0 10px 20px rgba(2,6,23,.18);
+      }
+      .thumbs.is-swipe .thumb.is-active{
+        transform: scale(1) rotate(0deg);
+        box-shadow: 0 16px 36px rgba(2,6,23,.28);
+      }
+      .thumbs.is-swipe .thumb.is-prev{
+        transform: scale(0.95) rotate(-3deg) translateX(-6px);
+      }
+      .thumbs.is-swipe .thumb.is-next{
+        transform: scale(0.95) rotate(3deg) translateX(6px);
+      }
+      .thumbs.is-swipe .thumb iframe{
+        pointer-events: none;
+      }
       .svc{ grid-template-columns: 1fr; }
       .navlinks{ display:none; }
       .meta-row{ grid-template-columns: 1fr; }
@@ -646,13 +676,65 @@
     const thumbs = document.querySelector(".thumbs");
     if (thumbs) {
       const tiles = thumbs.querySelectorAll(".thumb");
+      let isMobile = window.matchMedia("(max-width: 640px)").matches;
+      let cleanupSwipe = null;
+
+      const setActiveMobile = (index) => {
+        tiles.forEach((tile, i) => {
+          tile.classList.toggle("is-active", i === index);
+          tile.classList.toggle("is-prev", i === index - 1);
+          tile.classList.toggle("is-next", i === index + 1);
+        });
+      };
+
+      const enableSwipe = () => {
+        thumbs.classList.add("is-swipe");
+        const tilesArray = Array.from(tiles);
+        setActiveMobile(0);
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const index = tilesArray.indexOf(entry.target);
+              if (index !== -1) {
+                setActiveMobile(index);
+              }
+            }
+          });
+        }, { root: thumbs, threshold: 0.6 });
+
+        tilesArray.forEach((tile) => observer.observe(tile));
+        cleanupSwipe = () => {
+          observer.disconnect();
+          tiles.forEach((tile) => tile.classList.remove("is-active", "is-prev", "is-next"));
+          thumbs.classList.remove("is-swipe");
+        };
+      };
+
+      const disableSwipe = () => {
+        if (cleanupSwipe) {
+          cleanupSwipe();
+          cleanupSwipe = null;
+        }
+      };
+
+      const applyMode = (mq) => {
+        isMobile = mq.matches;
+        if (isMobile) {
+          enableSwipe();
+        } else {
+          disableSwipe();
+        }
+      };
+
       const clearActive = () => {
+        if (isMobile) return;
         thumbs.classList.remove("has-active");
         tiles.forEach((tile) => tile.classList.remove("is-active"));
       };
 
       tiles.forEach((tile) => {
         tile.addEventListener("pointerenter", () => {
+          if (isMobile) return;
           thumbs.classList.add("has-active");
           tiles.forEach((t) => t.classList.remove("is-active"));
           tile.classList.add("is-active");
@@ -664,6 +746,10 @@
       });
 
       thumbs.addEventListener("pointerleave", clearActive);
+
+      const mobileQuery = window.matchMedia("(max-width: 640px)");
+      applyMode(mobileQuery);
+      mobileQuery.addEventListener("change", applyMode);
     }
 
     const scrollIndicator = document.getElementById("scroll-indicator");
